@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMG Smart Control Center</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.1/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.1.0"></script>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo"> FMG Control</div>
+        <ul class="nav-links">
+            <li class="active" onclick="switchTab('welcome', this)" title="Welcome">🏠</li>
+            <li onclick="switchTab('media', this)" title="Media">🎬</li>
+            <li onclick="switchTab('game', this)" title="Game">🎮</li>
+            <li onclick="switchTab('ecommerce', this)" title="Shop">🛒</li>
+            <li onclick="switchTab('analysis', this)" title="Analysis & Connection">⚙️</li>
+        </ul>
+        <div id="instructions-panel">
+            <h4>Instructions</h4>
+            <ul id="dynamic-instructions" class="instruction-list">
+                <!-- Instructions injected here by JS -->
+            </ul>
+            <div class="dynamic-gesture-display">
+                <h4>Last Gesture</h4>
+                <img id="main-predicted-img" src="/assets/gestures/Extend.png" style="opacity:0.2;">
+                <div id="main-gesture-display" class="live-gesture-badge">Waiting...</div>
+            </div>
+        </div>
+        <div class="status-panel">
+            <div id="conn-indicator" class="dot disconnected"></div>
+            <span id="conn-status">Disconnected</span>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content">
+
+        <!-- Welcome Tab -->
+        <section id="welcome" class="tab-content active">
+            <header>
+                <h1>Welcome to FMG Smart Control</h1>
+                <p class="subtitle">Use your physical band or demo keys (1-5) to navigate touchlessly.</p>
+            </header>
+
+
+
+            <div class="welcome-nav-cards">
+                <div class="nav-card" onclick="switchTab('media', document.querySelectorAll('.nav-links li')[1])">
+                    <h3>🎬 Media Controller</h3>
+                    <p>Control YouTube playback touchlessly.</p>
+                </div>
+                <div class="nav-card" onclick="switchTab('game', document.querySelectorAll('.nav-links li')[2])">
+                    <h3>🎮 Gesture Game</h3>
+                    <p>Play the Subway Surfers runner.</p>
+                </div>
+                <div class="nav-card" onclick="switchTab('ecommerce', document.querySelectorAll('.nav-links li')[3])">
+                    <h3>🛒 E-commerce</h3>
+                    <p>Browse products with the 3D carousel.</p>
+                </div>
+                <div class="nav-card" onclick="switchTab('analysis', document.querySelectorAll('.nav-links li')[4])">
+                    <h3>⚙️ Analysis</h3>
+                    <p>Connect and calibrate FMG gestures.</p>
+                </div>
+            </div>
+
+            <h3>Active Gesture Vocabulary</h3>
+            <div class="gesture-grid">
+                <!-- Using real user assets -->
+                <div class="gesture-card"><img class="g-icon-img" src="/assets/gestures/Extend.png" alt="Extend">
+                    <h4>Extend (1)</h4>
+                </div>
+                <div class="gesture-card"><img class="g-icon-img" src="/assets/gestures/Flex.png" alt="Flex">
+                    <h4>Flex (2)</h4>
+                </div>
+                <div class="gesture-card"><img class="g-icon-img" src="/assets/gestures/Fist_Close.png" alt="Fist">
+                    <h4>Fist Close (3)</h4>
+                </div>
+                <div class="gesture-card"><img class="g-icon-img" src="/assets/gestures/Thumbs_Up.png" alt="Thumbs Up">
+                    <h4>Thumbs Up (4)</h4>
+                </div>
+                <div class="gesture-card"><img class="g-icon-img" src="/assets/gestures/Thumbs_Down.png"
+                        alt="Thumbs Down">
+                    <h4>Thumbs Down (5)</h4>
+                </div>
+            </div>
+
+            <!-- Hidden keyboard catcher for demo mode -->
+            <p style="text-align:center; color:#888; margin-top:30px;">Press 1-5 keys on your keyboard anytime to
+                simulate gestures!</p>
+        </section>
+
+        <!-- Media Tab -->
+        <section id="media" class="tab-content">
+
+                <div class="media-container">
+                    <div class="media-main">
+                        <!-- YouTube IFrame API Container -->
+                        <div class="player-wrapper">
+                            <div id="player"></div>
+                            <div id="media-overlay" class="overlay hidden">Action</div>
+                        </div>
+                        
+                        <!-- Media Details -->
+                        <div class="media-details">
+                            <h2 class="video-title">Numerical solution of ODE 1</h2>
+                            <div class="video-meta-row">
+                                <div class="channel-info">
+                                    <div class="channel-avatar">N</div>
+                                    <div class="channel-text">
+                                        <div class="channel-name">NOC17 BT05</div>
+                                        <div class="channel-subs">1.33K subscribers</div>
+                                    </div>
+                                    <button class="btn subscribe-btn">Subscribe</button>
+                                </div>
+                                <div class="video-actions">
+                                    <div class="action-pill">
+                                        <button class="btn action-btn like-btn">👍 46</button>
+                                        <div class="pill-divider"></div>
+                                        <button class="btn action-btn dislike-btn">👎</button>
+                                    </div>
+                                    <button class="btn action-btn pill-btn">➦ Share</button>
+                                    <button class="btn action-btn pill-btn">⬇ Download</button>
+                                    <button class="btn action-btn circle-btn">•••</button>
+                                </div>
+                            </div>
+                            <div class="video-description">
+                                <p class="desc-stats"><strong>4.7K views</strong> • 9 years ago</p>
+                                <p>Introduction to Dynamical Models in Biology: Module 5, Week 1 ...more</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Side panel with recommended videos -->
+                    <div class="media-sidebar">
+                        <div class="playlist-filters">
+                            <button class="filter-pill active">All</button>
+                            <button class="filter-pill">From the series</button>
+                            <button class="filter-pill">Related</button>
+                        </div>
+                        
+                        <div class="playlist-header">
+                            <h3>Introduction To Dynamical Models in Biology</h3>
+                            <p class="playlist-meta">NOC17 BT05 • 5 / 24</p>
+                            <div class="playlist-controls">
+                                <span class="control-icon">🔁</span>
+                                <span class="control-icon">🔀</span>
+                            </div>
+                        </div>
+                        
+                        <div class="playlist-items">
+                            <div class="rec-video active-video" onclick="changeVideo('N-TV_6eIDxw')">
+                                <span class="playlist-index">▶</span>
+                                <div class="thumb" style="background-image:url('https://img.youtube.com/vi/N-TV_6eIDxw/hqdefault.jpg')">
+                                    <span class="thumb-duration">41:00</span>
+                                </div>
+                                <div class="info">
+                                    <h4>Numerical solution of ODE 1</h4>
+                                    <p>NOC17 BT05</p>
+                                </div>
+                            </div>
+                            <div class="rec-video" onclick="changeVideo('oc_o5DZM3qc')">
+                                <span class="playlist-index">6</span>
+                                <div class="thumb" style="background-image:url('https://img.youtube.com/vi/oc_o5DZM3qc/hqdefault.jpg')">
+                                    <span class="thumb-duration">23:41</span>
+                                </div>
+                                <div class="info">
+                                    <h4>Simulating ODE-based models:Introduction to JSim</h4>
+                                    <p>NOC17 BT05</p>
+                                </div>
+                            </div>
+                            <div class="rec-video" onclick="changeVideo('qJZ1Ez28C-A')">
+                                <span class="playlist-index">7</span>
+                                <div class="thumb" style="background-image:url('https://img.youtube.com/vi/qJZ1Ez28C-A/hqdefault.jpg')">
+                                    <span class="thumb-duration">24:15</span>
+                                </div>
+                                <div class="info">
+                                    <h4>Simulating ODE-based models:Examples</h4>
+                                    <p>NOC17 BT05</p>
+                                </div>
+                            </div>
+                            <div class="rec-video" onclick="changeVideo('iv-5mZ_9CPY')">
+                                <span class="playlist-index">8</span>
+                                <div class="thumb" style="background-image:url('https://img.youtube.com/vi/iv-5mZ_9CPY/hqdefault.jpg')">
+                                    <span class="thumb-duration">19:04</span>
+                                </div>
+                                <div class="info">
+                                    <h4>Steady state and stability analysis</h4>
+                                    <p>NOC17 BT05</p>
+                                </div>
+                            </div>
+                            <div class="rec-video" onclick="changeVideo('LqbZpur38nw')">
+                                <span class="playlist-index">9</span>
+                                <div class="thumb" style="background-image:url('https://img.youtube.com/vi/LqbZpur38nw/hqdefault.jpg')">
+                                    <span class="thumb-duration">37:27</span>
+                                </div>
+                                <div class="info">
+                                    <h4>Stability of Steady state</h4>
+                                    <p>NOC17 BT05</p>
+                                </div>
+                            </div>
+                            <div class="rec-video" onclick="changeVideo('Lm1ChtK9QDU')">
+                                <span class="playlist-index">10</span>
+                                <div class="thumb" style="background-image:url('https://img.youtube.com/vi/Lm1ChtK9QDU/hqdefault.jpg')">
+                                    <span class="thumb-duration">20:14</span>
+                                </div>
+                                <div class="info">
+                                    <h4>Phase Plane Analysis-I</h4>
+                                    <p>NOC17 BT05</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
+        <!-- Game Tab -->
+        <section id="game" class="tab-content" style="padding:28px;">
+                <div class="game-container" style="position:relative;width:100%;height:100%;min-height:440px;overflow:hidden;border-radius:18px;background:var(--sidebar-bg);box-shadow:0 8px 32px rgba(0,0,0,0.18);">
+                    <canvas id="gameCanvas" style="width:100%;height:100%;display:block;border-radius:18px;"></canvas>
+                    <div id="game-overlay" class="overlay" style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(56,57,62,0.84);backdrop-filter:blur(10px);border-radius:18px;padding:36px 44px;font-family:'Inter',sans-serif;color:var(--bg);width:auto;max-width:520px;"></div>
+                    <div id="score-display" style="display:none;"></div>
+                </div>
+        </section>
+
+        <!-- Ecommerce Tab -->
+        <section id="ecommerce" class="tab-content">
+            
+            <!-- Meesho Style Category Banners -->
+            <div class="ecom-nav" id="ecom-nav">
+                <div class="cat-wrapper" onclick="loadCategory('sunglasses', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=160&q=80"></div><span>Glasses</span></div>
+                <div class="cat-wrapper active" onclick="loadCategory('smartphones', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=160&q=80"></div><span>Phones</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('laptops', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=160&q=80"></div><span>Laptops</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('mens-shirts', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=160&q=80"></div><span>Men's</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('womens-dresses', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=160&q=80"></div><span>Women's</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('womens-shoes', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=160&q=80"></div><span>Shoes</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('womens-jewellery', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=160&q=80"></div><span>Jewelery</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('skin-care', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=160&q=80"></div><span>Skincare</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('groceries', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=160&q=80"></div><span>Grocery</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('home-decoration', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=160&q=80"></div><span>Decor</span></div>
+                <div class="cat-wrapper" onclick="loadCategory('furniture', this)"><div class="cat-bubble"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=160&q=80"></div><span>Furniture</span></div>
+            </div>
+
+            <div class="ecom-main-area">
+                <!-- 3D Product Carousel Viewport -->
+                <div class="carousel-container">
+                    <div id="loading-spinner" class="spinner">Fetching Live Data...</div>
+                    <div class="carousel" id="carousel" style="display:none;">
+                        <!-- Cards generated in JS from fake APIs -->
+                    </div>
+                </div>
+
+                <!-- Right Aligned Side Dashboard for Bins -->
+                <div class="shop-bins">
+                    <div class="bin cart-bin" id="bin-cart" onclick="toggleCartModal()">
+                        <div class="bin-icon">🛒</div>
+                        <div class="bin-label" id="cart-count">Bag (0)</div>
+                    </div>
+                    <div class="bin like-bin" id="bin-like">
+                        <div class="bin-icon">👍</div>
+                        <div class="bin-label">Like</div>
+                    </div>
+                    <div class="bin dislike-bin" id="bin-dislike">
+                        <div class="bin-icon">👎</div>
+                        <div class="bin-label">Unlike</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Cart Checkout Modal -->
+            <div id="cart-overlay" class="cart-modal-overlay hidden" onclick="toggleCartModal()">
+                <div class="cart-modal" onclick="event.stopPropagation()">
+                    <div class="cart-header">
+                        <h2>Your Shopping Bag</h2>
+                        <button class="close-btn" onclick="toggleCartModal()">✕</button>
+                    </div>
+                    <div class="cart-items" id="cart-item-list">
+                        <!-- Populated by JS -->
+                    </div>
+                    <div class="cart-footer">
+                        <div class="cart-total-row"><span>Total:</span> <strong id="cart-total">₹0.00</strong></div>
+                        <div class="cart-actions">
+                            <button class="btn" onclick="toggleCartModal()">Continue</button>
+                            <button class="btn primary checkout-btn" onclick="processCheckout()">Cashout ➔</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Overlay popup -->
+            <div id="success-overlay" class="cart-modal-overlay hidden">
+                <div class="success-box">
+                    <div class="success-icon">✅</div>
+                    <h2>Payment Successful!</h2>
+                    <p>Your order has been placed via hardware authentication.</p>
+                    <button class="btn primary checkout-btn" style="margin-top:20px;width:100%" onclick="closeSuccessOverlay()">Back to Shop</button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Analysis & Controller Tab — mirrors tkinter 3-column GestureUI exactly -->
+    <section id="analysis" class="tab-content">
+        
+        <!-- Header: mirrors tkinter HDR_BG header bar -->
+        <div style="background:var(--primary);color:var(--bg);padding:10px 20px;border-radius:8px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:15px;">
+                <h2 style="margin:0;font-size:17px;">⚡ FMG Gesture Classifier</h2>
+                <span style="color:var(--bg);opacity:0.8;font-size:11px;">CNN + Calibration | GRU</span>
+            </div>
+            <div style="color:var(--bg);font-size:11px;">✅ GRU Model</div>
+        </div>
+
+        <!-- 3-column body — exact mirror of tkinter colA/colB/colC -->
+        <div style="display:flex;gap:8px;flex:1;min-height:0;overflow:hidden;">
+
+            <!-- ══ COLUMN A  (width ≈270 px) ══════════════════════════ -->
+            <div style="display:flex;flex-direction:column;gap:8px;min-width:260px;max-width:280px;overflow-y:auto;padding-right:2px;">
+
+                <!-- Serial Connection card -->
+                <div class="a-card">
+                    <div class="a-card-title">Serial Connection</div>
+                    <div style="display:flex;gap:6px;align-items:center;margin-bottom:8px;">
+                        <label class="a-lbl">Port:</label>
+                        <select id="analysis-port-select" class="a-select">
+                            <option value="">Select Port…</option>
+                        </select>
+                        <button class="a-btn-sm" onclick="fetchPortsAnalysis()">⟳</button>
+                    </div>
+                    <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+                        <button id="analysis-connect-btn" class="a-btn-primary" onclick="toggleConnectAnalysis()">▶ Connect</button>
+                        <span id="analysis-conn-status" style="font-size:11px;color:var(--muted);">⬤ Disconnected</span>
+                    </div>
+                    <div id="analysis-mode-lbl" style="font-size:11px;font-weight:700;color:var(--text);">Mode: connect to start</div>
+                </div>
+
+                <!-- Calibration Steps card -->
+                <div class="a-card">
+                    <div class="a-card-title">Calibration Steps</div>
+                    <!-- ① Rest baseline -->
+                    <button id="cal-base-btn" class="a-btn-cal-primary" disabled
+                            onclick="startCalibration('base')">① Calibrate Rest (5s)</button>
+                    <!-- ② Gesture buttons -->
+                    <div style="display:flex;flex-direction:column;gap:3px;margin:6px 0;">
+                        <button id="cal-Extend-btn"      class="a-btn-cal-gest" disabled onclick="startCalibration('Extend')">
+                            <img src="/assets/gestures/Extend.png" style="height:18px;vertical-align:middle;margin-right:6px;" alt="">Extend
+                        </button>
+                        <button id="cal-Flex-btn"        class="a-btn-cal-gest" disabled onclick="startCalibration('Flex')">
+                            <img src="/assets/gestures/Flex.png" style="height:18px;vertical-align:middle;margin-right:6px;" alt="">Flex
+                        </button>
+                        <button id="cal-Fist_Close-btn"  class="a-btn-cal-gest" disabled onclick="startCalibration('Fist_Close')">
+                            <img src="/assets/gestures/Fist_Close.png" style="height:18px;vertical-align:middle;margin-right:6px;" alt="">Fist Close
+                        </button>
+                        <button id="cal-Thumbs_Up-btn"   class="a-btn-cal-gest" disabled onclick="startCalibration('Thumbs_Up')">
+                            <img src="/assets/gestures/Thumbs_Up.png" style="height:18px;vertical-align:middle;margin-right:6px;" alt="">Thumbs Up
+                        </button>
+                        <button id="cal-Thumbs_Down-btn" class="a-btn-cal-gest" disabled onclick="startCalibration('Thumbs_Down')">
+                            <img src="/assets/gestures/Thumbs_Down.png" style="height:18px;vertical-align:middle;margin-right:6px;" alt="">Thumbs Down
+                        </button>
+                    </div>
+                    <!-- ③ Live classification -->
+                    <button id="cal-live-btn" class="a-btn-live" disabled
+                            onclick="enableLiveClassification()">③ Start Live Classification</button>
+
+                    <!-- Progress bar + countdown (mirrors tkinter Progressbar + cal_tick) -->
+                    <div style="margin-top:8px;">
+                        <div style="background:rgba(56,57,62,0.2);border-radius:6px;height:10px;overflow:hidden;">
+                            <div id="cal-progress-bar" style="height:100%;width:0%;background:var(--primary);border-radius:6px;transition:width 0.1s linear;"></div>
+                        </div>
+                        <div id="cal-progress-status" style="font-size:10px;color:var(--muted);margin-top:3px;"></div>
+                        <div id="calibration-status" style="font-size:11px;font-weight:700;color:var(--text);margin-top:2px;">Not calibrated</div>
+                    </div>
+                </div>
+
+                <!-- Baseline FSR Values card -->
+                <div class="a-card">
+                    <div class="a-card-title">Baseline FSR Values</div>
+                    <div style="display:flex;gap:4px;font-size:10px;font-weight:700;flex-wrap:wrap;">
+                        <span style="color:var(--text);opacity:1;" id="bf-0">F1:—</span>
+                        <span style="color:var(--text);opacity:0.85;" id="bf-1">F2:—</span>
+                        <span style="color:var(--text);opacity:0.7;" id="bf-2">F3:—</span>
+                        <span style="color:var(--text);opacity:0.55;" id="bf-3">F4:—</span>
+                        <span style="color:var(--text);opacity:0.4;" id="bf-4">F5:—</span>
+                        <span style="color:var(--text);opacity:0.25;" id="bf-5">F6:—</span>
+                    </div>
+                    <div id="analysis-thr-lbl" style="font-size:10px;color:var(--text);font-weight:700;margin-top:4px;">Thresholds: not calibrated</div>
+                </div>
+
+                <!-- Event Log — expands to fill remaining column space -->
+                <div class="a-card" style="flex:1;display:flex;flex-direction:column;min-height:120px;">
+                    <div class="a-card-title" style="flex-shrink:0;">Event Log</div>
+                    <textarea id="event-log" readonly
+                        style="flex:1;resize:none;border:none;border-radius:4px;padding:5px;
+                               font-family:'Courier New',monospace;font-size:9px;
+                               background:var(--card-hover);color:var(--text);min-height:0;"></textarea>
+                </div>
+            </div>
+
+            <!-- ══ COLUMN B  (≈300 px) ══════════════════════════════════ -->
+            <div style="display:flex;flex-direction:column;gap:8px;min-width:280px;max-width:320px;">
+
+                <!-- Detected Gesture card -->
+                <div class="a-card" style="text-align:center;">
+                    <div class="a-card-title" style="text-align:left;">Detected Gesture</div>
+                    <img id="analysis-gesture-img" src="" alt=""
+                         style="width:100px;height:100px;display:block;margin:6px auto 2px;object-fit:contain;opacity:0.22;">
+                    <div id="analysis-gesture-emoji" style="font-size:34px;line-height:1.1;margin:2px 0;">—</div>
+                    <h2 id="analysis-gesture-name" style="color:var(--text);font-size:14px;font-weight:700;margin:6px 0 2px;">Connect &amp; calibrate</h2>
+                    <p id="analysis-confidence" style="color:var(--muted);font-size:10px;margin:2px 0;">Confidence: —</p>
+                    <p id="analysis-win-lbl"    style="color:var(--muted);font-weight:700;font-size:10px;margin:2px 0;">● Idle</p>
+                    <p id="analysis-fsr-sum"    style="color:var(--muted);font-size:9px;margin:2px 0;">FSR sum: 0.00</p>
+                    <p id="analysis-imu"        style="color:var(--muted);font-size:9px;margin:2px 0;">Roll: — | Pitch: — | Yaw: —</p>
+                </div>
+
+                <!-- FSR Live Bar chart -->
+                <div class="a-card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
+                    <div class="a-card-title" style="flex-shrink:0;">FSR Live Bars</div>
+                    <div style="flex:1;position:relative;min-height:0;">
+                        <canvas id="fsr-bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══ COLUMN C  (flex, min 350 px) ════════════════════════ -->
+            <div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:320px;">
+
+                <!-- FSR Time-series -->
+                <div class="a-card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
+                    <div class="a-card-title" style="flex-shrink:0;">FSR Channels — Time Series</div>
+                    <div style="flex:1;position:relative;min-height:0;">
+                        <canvas id="fsr-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- IMU Roll/Pitch/Yaw -->
+                <div class="a-card" style="flex:1;display:flex;flex-direction:column;min-height:0;">
+                    <div class="a-card-title" style="flex-shrink:0;">IMU — Roll / Pitch / Yaw</div>
+                    <div style="flex:1;position:relative;min-height:0;">
+                        <canvas id="imu-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- end 3-col body -->
+    </section>
+
+    <!-- Global Floating Action Badge -->
+    <div id="global-action" class="global-action hidden">Gesture Detected</div>
+
+    <!-- YouTube Iframe API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/static/js/app.js?v=2"></script>
+    <script src="/static/js/game.js?v=2"></script>
+    <script src="/static/js/analysis.js?v=2"></script>
+</body>
+
+</html>
