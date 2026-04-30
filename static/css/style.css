@@ -618,7 +618,7 @@ input:focus {
 
 #ecommerce.tab-content {
     display: none;
-    background: #FAFAFA;
+    background: transparent;
 }
 
 #ecommerce.tab-content.active {
@@ -1330,15 +1330,15 @@ canvas {
 .instruction-list li {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    font-size: 14px;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 11px;
     color: var(--text);
 }
 
 .instruction-list li img {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
 }
 
@@ -1374,3 +1374,109 @@ canvas {
     font-weight: 500;
     font-size: 14px;
 }
+/* Swish & Flick Branding Styles */
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+.nav-links li:hover .nav-icon {
+    transform: scale(1.1);
+}
+
+.image-card {
+    padding: 0 !important;
+    overflow: hidden;
+    position: relative;
+    border: none !important;
+    border-radius: 16px !important;
+    aspect-ratio: 16 / 9;
+}
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.image-card:hover img {
+    transform: scale(1.05);
+}
+.img-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    pointer-events: none;
+}
+.img-card-overlay span {
+    color: white;
+    font-family: "Outfit", sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.page-title {
+    font-family: "Outfit", sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+    background: linear-gradient(90deg, var(--text) 0%, var(--muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* NEW STYLES: Sidebar Matrix & Title Icons */
+.matrix-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 0;
+    margin-top: 10px;
+}
+.matrix-nav li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(248, 242, 228, 0.04);
+    border-radius: 14px;
+    aspect-ratio: 1;
+    padding: 12px;
+    transition: background 0.2s, transform 0.2s;
+}
+.matrix-nav li:hover {
+    background: rgba(248, 242, 228, 0.12);
+    transform: translateY(-2px);
+}
+.matrix-nav li.active {
+    background: rgba(248, 242, 228, 0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.matrix-nav .nav-icon {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.title-icon {
+    height: 44px;
+    width: 44px;
+    vertical-align: middle;
+    margin-right: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.image-card {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+

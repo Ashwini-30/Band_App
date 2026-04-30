@@ -17,14 +17,16 @@ let ecomProducts = [];
 
 // Setup Socket
 socket.on('status', (data) => {
-    document.getElementById('conn-status').innerText = data.msg;
-    const dot = document.getElementById('conn-indicator');
-    if (data.msg.includes("Connected")) {
-        dot.className = "dot connected";
-        isConnected = true;
-    } else {
-        dot.className = "dot disconnected";
-        isConnected = false;
+    const statusText = document.getElementById('conn-status');
+    if(statusText) {
+        statusText.innerText = data.msg;
+        if (data.msg.includes("Connected")) {
+            statusText.style.color = "var(--sidebar-text)";
+            isConnected = true;
+        } else {
+            statusText.style.color = "var(--sidebar-text)";
+            isConnected = false;
+        }
     }
 });
 
@@ -72,27 +74,27 @@ function switchTab(tabId, el) {
         let items = '';
         if (tabId === 'media') {
             items = `
-                <li><img src="/assets/gestures/Thumbs_Up.png" alt="Thumbs Up"> <strong>Thumbs Up:</strong> Play</li>
-                <li><img src="/assets/gestures/Thumbs_Down.png" alt="Thumbs Down"> <strong>Thumbs Down:</strong> Pause</li>
-                <li><img src="/assets/gestures/Extend.png" alt="Extend"> <strong>Extend:</strong> Vol +</li>
-                <li><img src="/assets/gestures/Flex.png" alt="Flex"> <strong>Flex:</strong> Vol -</li>
-                <li><img src="/assets/gestures/Fist_Close.png" alt="Fist"> <strong>Fist:</strong> Mute</li>
+                <li><img src="/assets/gestures/Thumbs_Up.png" alt="Thumbs Up"> Play</li>
+                <li><img src="/assets/gestures/Thumbs_Down.png" alt="Thumbs Down"> Pause</li>
+                <li><img src="/assets/gestures/Extend.png" alt="Extend"> Vol +</li>
+                <li><img src="/assets/gestures/Flex.png" alt="Flex"> Vol -</li>
+                <li><img src="/assets/gestures/Fist_Close.png" alt="Fist"> Mute</li>
             `;
         } else if (tabId === 'game') {
             items = `
-                <li><img src="/assets/gestures/Flex.png" alt="Flex"> <strong>Flex:</strong> Move Left</li>
-                <li><img src="/assets/gestures/Extend.png" alt="Extend"> <strong>Extend:</strong> Move Right</li>
-                <li><img src="/assets/gestures/Thumbs_Up.png" alt="Thumbs Up"> <strong>Thumbs Up:</strong> Jump</li>
-                <li><img src="/assets/gestures/Thumbs_Down.png" alt="Thumbs Down"> <strong>Thumbs Down:</strong> Pause</li>
-                <li><img src="/assets/gestures/Fist_Close.png" alt="Fist"> <strong>Fist Close:</strong> Attack</li>
+                <li><img src="/assets/gestures/Flex.png" alt="Flex"> Move Left</li>
+                <li><img src="/assets/gestures/Extend.png" alt="Extend"> Move Right</li>
+                <li><img src="/assets/gestures/Thumbs_Up.png" alt="Thumbs Up"> Jump</li>
+                <li><img src="/assets/gestures/Thumbs_Down.png" alt="Thumbs Down"> Pause</li>
+                <li><img src="/assets/gestures/Fist_Close.png" alt="Fist"> Attack</li>
             `;
         } else if (tabId === 'ecommerce') {
             items = `
-                <li><img src="/assets/gestures/Thumbs_Up.png" alt="Thumbs Up"> <strong>Thumbs Up:</strong> Like</li>
-                <li><img src="/assets/gestures/Thumbs_Down.png" alt="Thumbs Down"> <strong>Thumbs Down:</strong> Dislike</li>
-                <li><img src="/assets/gestures/Extend.png" alt="Extend"> <strong>Extend:</strong> Rotate Left</li>
-                <li><img src="/assets/gestures/Flex.png" alt="Flex"> <strong>Flex:</strong> Rotate Right</li>
-                <li><img src="/assets/gestures/Fist_Close.png" alt="Fist"> <strong>Fist:</strong> Add to Cart</li>
+                <li><img src="/assets/gestures/Thumbs_Up.png" alt="Thumbs Up"> Like</li>
+                <li><img src="/assets/gestures/Thumbs_Down.png" alt="Thumbs Down"> Dislike</li>
+                <li><img src="/assets/gestures/Extend.png" alt="Extend"> Rotate Left</li>
+                <li><img src="/assets/gestures/Flex.png" alt="Flex"> Rotate Right</li>
+                <li><img src="/assets/gestures/Fist_Close.png" alt="Fist"> Add to Cart</li>
             `;
         }
         ul.innerHTML = items;

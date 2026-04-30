@@ -6,8 +6,8 @@
 // ─── constants (mirror Python) ──────────────────────────────
 const HISTORY      = 300;
 const CAL_GESTURES = ["Extend", "Flex", "Fist_Close", "Thumbs_Up", "Thumbs_Down"];
-const FSR_COLORS   = ["rgba(56,57,62,1)", "rgba(56,57,62,0.85)", "rgba(56,57,62,0.7)", "rgba(56,57,62,0.55)", "rgba(56,57,62,0.4)", "rgba(56,57,62,0.25)"];
-const RPY_COLORS   = ["rgba(56,57,62,1)", "rgba(56,57,62,0.6)", "rgba(56,57,62,0.3)"];
+const FSR_COLORS   = ["#FF3366", "#33CCFF", "#FFCC00", "#33FF66", "#9933FF", "#FF9933"];
+const RPY_COLORS   = ["#FF0054", "#390099", "#FFBD00"];
 const ACC2         = "#38393e";
 const WARN         = "#38393e";
 const AMBER        = "#38393e";
