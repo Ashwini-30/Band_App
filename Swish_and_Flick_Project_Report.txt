@@ -1,0 +1,139 @@
+================================================================================
+                    SWISH & FLICK: FMG GESTURE-BASED SMART INTERACTION SYSTEM
+================================================================================
+                              COMPREHENSIVE PROJECT REPORT
+================================================================================
+
+1. PROJECT OVERVIEW
+--------------------------------------------------------------------------------
+"Swish & Flick" is a cutting-edge, real-time gesture-controlled interactive 
+web application powered by a Force Myography (FMG) and Inertial Measurement 
+Unit (IMU) wearable band. 
+
+The core objective of the project is to provide a "touchless, muscle-driven 
+interaction using wearable sensing" replacing traditional input devices (like 
+a mouse or keyboard) with natural hand gestures. 
+
+The system seamlessly combines biomedical signal processing, real-time 
+Machine Learning (ML), and a modern, modular Web UI to drive multiple 
+interactive domains including media playback, gaming, and e-commerce.
+
+2. SYSTEM ARCHITECTURE
+--------------------------------------------------------------------------------
+The project architecture bridges hardware, deep learning, and web technologies:
+
+    [ Wearable FMG/IMU Band ]
+             |  (Serial Data Stream via COM port)
+             v
+    [ Python Backend Engine (cnn_controller.py) ]
+      - PySerial interface for data ingestion
+      - Sliding window buffer & thresholding
+      - Machine Learning Classifier (Extra Trees / CNN)
+             |  (Real-time event emission via WebSockets)
+             v
+    [ Flask-SocketIO Web Server (main.py) ]
+             |  (Bi-directional low-latency communication)
+             v
+    [ HTML/JS/CSS Frontend (index.html, app.js, etc.) ]
+      - Global UI State Manager
+      - Dynamic Visualizations (Chart.js)
+      - Interactive Application Modules
+
+3. MACHINE LEARNING & HARDWARE INTEGRATION (FlickLink Engine)
+--------------------------------------------------------------------------------
+The intelligence of the system lives in the `cnn_controller.py` engine, which 
+is responsible for real-time data streaming and classification.
+
+- Sensor Inputs: The system reads an 18-value serial stream consisting of:
+  - IMU Data: Roll, Pitch, Yaw, Acceleration (ax, ay, az), Gyroscope (gx, gy, gz),
+    Magnetometer (mx, my, mz).
+  - FMG Data: 6 distinct Force Sensing Resistor (FSR) channels measuring muscle 
+    pressure.
+
+- Windowing & Segmentation:
+  The engine continuously monitors the sum of FSR readings. When the sum 
+  exceeds a dynamically calibrated "on-threshold", the system opens a sliding 
+  window to capture the gesture. Once the reading drops below the "off-threshold",
+  the window closes, and the data is passed to the ML classifier.
+
+- Calibration System:
+  The application features a built-in calibration workflow (FlickLink tab).
+  1. Base Calibration: Captures the resting state of the arm (5 seconds) to 
+     calculate dynamic activation thresholds.
+  2. Gesture Calibration: Captures 4-second prototypes of specific gestures.
+  
+- Machine Learning Model:
+  The engine uses a Convolutional Neural Network (CNN) model to extract features 
+  and classify the gestures. It also incorporates a prototype-matching layer using
+  Cosine Similarity against the live-calibrated gestures, combining base CNN 
+  predictions with user-specific live data for hyper-accurate classification.
+
+4. GESTURE VOCABULARY & GLOBAL MAPPING
+--------------------------------------------------------------------------------
+The system recognizes 5 distinct gestures, mapped seamlessly across all apps:
+- 🖐 Extend        -> Volume Up / Move Right / Next Item
+- 🤏 Flex          -> Volume Down / Move Left / Previous Item
+- ✊ Fist Close    -> Mute / Power Boost / Add to Cart
+- 👍 Thumbs Up     -> Play / Jump / Like / Wishlist
+- 👎 Thumbs Down   -> Pause / Slide Down / Unlike / Remove
+
+5. FRONTEND MODULES (The Dashboard)
+--------------------------------------------------------------------------------
+The frontend is built using Vanilla HTML, CSS, and JavaScript. It runs a single-
+page application (SPA) architecture with dynamic tab switching and a stunning 
+duotone UI theme.
+
+A. Welcome Page:
+   - Provides a clean, visually appealing introduction.
+   - Explains the active gesture vocabulary with icons.
+   - Includes fallback keyboard controls (demo mode).
+
+B. FlickShow (Media Controller):
+   - A YouTube-style media interface utilizing the YouTube IFrame API.
+   - Users can play, pause, mute, and adjust volume entirely through gestures.
+   - Features a dynamic playlist sidebar to navigate through recommended videos.
+
+C. FlickRoll (Gaming Interface):
+   - An integrated endless runner game (Subway Surfers/Temple Run style) rendered 
+     on an HTML5 Canvas.
+   - The player navigates obstacles using Flex (Left) and Extend (Right).
+   - Thumbs Up allows the player to jump over barriers, and Fist Close activates 
+     a power boost.
+
+D. FlickCart (E-commerce Interface):
+   - A modern, Amazon/Meesho inspired shopping interface.
+   - Features a 3D product carousel viewport for browsing categories (Phones, 
+     Laptops, Clothes, etc.).
+   - Users can swipe left/right to browse, use Thumbs Up to add to wishlist, 
+     and use Fist Close to seamlessly drop items into their shopping bag.
+   - Includes a full cart modal and simulated gesture-authenticated checkout.
+
+E. FlickLink (Analysis & Controller):
+   - A developer and user-facing calibration dashboard.
+   - Allows connection to the serial port.
+   - Displays real-time Time-Series charts (using Chart.js) for both the 6 FSR 
+     channels and the IMU Roll/Pitch/Yaw data.
+   - Visualizes live FSR bar charts.
+   - Displays a comprehensive event log of threshold crossings and predictions.
+
+6. TECHNOLOGY STACK SUMMARY
+--------------------------------------------------------------------------------
+- Backend: Python 3.10, Flask, Flask-SocketIO, PySerial
+- Machine Learning: TensorFlow/Keras, Scikit-Learn, Numpy, Joblib
+- Frontend Logic: Vanilla JavaScript (ES6), Socket.io-client, Chart.js
+- Styling: Custom Vanilla CSS (Modern Duotone theme, Glassmorphism elements,
+  CSS grid/flexbox layouts, responsive design)
+
+7. FUTURE SCOPE & APPLICATIONS
+--------------------------------------------------------------------------------
+The "Swish & Flick" architecture is highly scalable. Future iterations could 
+include:
+- Deeper integration into AR/VR environments.
+- Smart home IoT control (e.g., turning on lights or adjusting thermostats).
+- Advanced Assistive Technology for individuals with motor disabilities.
+- Upgrading the UI to modern frontend frameworks like React or Next.js for 
+  more complex state management.
+
+================================================================================
+REPORT END
+================================================================================

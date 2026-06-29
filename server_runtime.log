@@ -1,0 +1,106 @@
+✅ ExtraTrees loaded  classes=['Extend', 'Fist_Close', 'Flex', 'Thumbs_Down', 'Thumbs_Up']
+✅ ET scaler loaded
+🚀 Server starting at http://127.0.0.1:5050
+ * Serving Flask app 'main'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5050
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [22/Jun/2026 13:32:52] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:32:52] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:32:52] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:32:52] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:32:52] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:32:52] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:03] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:03] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:03] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:03] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:03] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:03] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+⚠️  TensorFlow unavailable: No module named 'keras.src.callbacks.backup_and_restore'
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:04] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/sf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/yticon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/gameicon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/controllericon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/shopicon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "GET /static/js/app.js?v=4 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/yt.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/shop.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/controller.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/gestures/Extend.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/Swish%20&%20Flick/game.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "GET /static/js/game.js?v=4 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "GET /static/js/analysis.js?v=4 HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/gestures/Flex.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/gestures/Fist_Close.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/gestures/Thumbs_Up.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:05] "[36mGET /assets/gestures/Thumbs_Down.png HTTP/1.1[0m" 304 -
+✅ Scaler loaded
+✅ LabelEncoder: ['Extend', 'Fist_Close', 'Flex', 'Thumbs_Down', 'Thumbs_Up']
+✅ Gesture engine ready
+127.0.0.1 - - [22/Jun/2026 13:35:21] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/sf.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/yticon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/gameicon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/shopicon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/controllericon.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/game.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/yt.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/shop.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/gestures/Extend.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/Swish%20&%20Flick/controller.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /static/js/app.js?v=4 HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /static/js/game.js?v=4 HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /static/js/analysis.js?v=4 HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/gestures/Fist_Close.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:22] "[36mGET /assets/gestures/Flex.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:23] "[36mGET /assets/gestures/Thumbs_Up.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:23] "[36mGET /assets/gestures/Thumbs_Down.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [22/Jun/2026 13:35:23] "GET /api/cv_status HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:23] "GET /api/ports HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:35:27] "POST /api/connect_port HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:38:40] "POST /api/disconnect_port HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:38:41] "POST /api/connect_port HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:38:43] "POST /api/disconnect_port HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:38:45] "POST /api/connect_port HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:38:51] "POST /api/start_calibration HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:38:58] "POST /api/start_calibration HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:39:04] "POST /api/start_calibration HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:39:11] "POST /api/start_calibration HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:39:16] "POST /api/start_calibration HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:39:23] "POST /api/start_calibration HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:40:24] "POST /api/disconnect_port HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:40:37] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [22/Jun/2026 13:40:37] "GET /events HTTP/1.1" 200 -

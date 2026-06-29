@@ -1,0 +1,64 @@
+====================================================================
+COMPREHENSIVE TECHNICAL REPORT: BAND_APP (FMG GESTURE SYSTEM)
+====================================================================
+
+1. EXECUTIVE SUMMARY
+--------------------
+The FMG (Force Myography) Gesture-Based Smart Interaction System ("Band_App") is a robust, real-time web application that translates muscle activity and motion data into interactive commands. Originally ported from a Tkinter desktop GUI to a modern web dashboard, it enables touchless control over multiple digital domains, including media playback, gaming, and e-commerce.
+
+2. SYSTEM ARCHITECTURE
+----------------------
+The application follows a decoupled client-server architecture:
+- Hardware Layer: An FMG band equipped with 6 FSR (Force Sensitive Resistor) sensors and an IMU (Inertial Measurement Unit). It provides 18 data points per sample at a high baud rate (115200): roll, pitch, yaw, ax, ay, az, gx, gy, gz, mx, my, mz, fsr1-fsr6.
+- Backend (Python/Flask): A Flask server acts as the central hub. It uses PySerial to read the hardware stream in a dedicated background thread, processes the data, and runs it through a machine learning classifier.
+- Real-time Communication (Socket.IO): The backend streams live gesture predictions, status updates, and calibration data to the frontend asynchronously.
+- Frontend UI: A dynamic multi-page dashboard consisting of a Welcome/Analysis page, Media Controller, Gesture Game, and E-commerce interface, all reacting to global socket events.
+
+3. MACHINE LEARNING & INFERENCE ENGINE (cnn_controller.py)
+----------------------------------------------------------
+The system employs a sophisticated hybrid classification approach:
+- Base Model: A pre-trained Deep Learning model (e.g., GRU/CNN) loaded via Keras/TensorFlow.
+- Feature Scaling: Input features are scaled using a pre-fitted joblib scaler, ensuring the data matches the distribution the neural network expects.
+- Sliding Window Segmentation: The controller continuously monitors the sum of FSR readings. When the sum exceeds a dynamically calculated baseline threshold (`thr_on_sum`), a window opens to capture the gesture. If the signal drops below the off-threshold (`thr_off_sum`) for a specific number of samples (`POST_OFF_COUNT`), the window closes, and the buffer is sent for classification.
+- Dynamic Prototype Calibration: To improve individual user accuracy, the system incorporates a 5-gesture calibration prior. Users can record baseline and gesture samples. The classifier calculates cosine similarity between live input and the calibrated prototypes, blending this similarity score with the base neural network prediction (using a `proto_weight` of 0.35) to output the final gesture class.
+
+4. BACKEND IMPLEMENTATION (main.py)
+-----------------------------------
+- The server runs on Flask and Flask-SocketIO (port 5050).
+- The `WebGestureEngine` acts as a Singleton, ensuring only one instance of the serial reader and model exists in memory.
+- Multithreading: Two primary daemon threads operate in the background:
+  1. Polling loop: Pulls data from the serial queue, processes it, and emits `stream_data`, `fsr_sum`, and `window_event` to the client.
+  2. Calibration Tick Loop: Emits progress updates during the baseline and gesture calibration phases.
+- API endpoints are exposed to list available COM ports (`/api/ports`) and to serve custom assets directly from the local file system.
+
+5. FRONTEND APPLICATION MODULES
+-------------------------------
+The user interface is broken down into four key components:
+- Welcome/Analysis Page: Handles serial port connection, displays system status, and acts as the central hub for the dynamic prototype calibration (Baseline, Extend, Flex, Fist_Close, Thumbs_Up, Thumbs_Down). It features real-time charts to visualize the FSR windowing segments.
+- Media Controller: A YouTube-style interface where gestures dictate playback (e.g., Play/Pause, Volume Control).
+- Gesture-Based Game: An endless runner (Subway Surfers style) where gestures map to character actions (Jump, Slide, Move Left/Right, Power Boost).
+- E-commerce Interface: Allows hands-free browsing of product catalogs, adding items to a cart, or wishlist navigation.
+
+6. GESTURE MAPPING DICTIONARY
+-----------------------------
+- Extend: Volume Up / Move Right / Next
+- Flex: Volume Down / Move Left / Previous
+- Fist Close: Mute / Power Boost / Add to Cart
+- Thumbs Up: Play / Jump / Like (Add to wishlist)
+- Thumbs Down: Pause / Slide / Unlike (Remove)
+
+7. DATA FLOW PIPELINE
+---------------------
+1. User performs a gesture.
+2. Hardware sends CSV string via Serial.
+3. `SerialReader` thread pushes 18-float arrays to a Queue.
+4. `WebGestureEngine` polling thread pulls from Queue and calculates FSR sum.
+5. Once `thr_on_sum` is breached, data is buffered into a window.
+6. Once `thr_off_sum` is sustained, window closes.
+7. `CNNClassifier` extracts the best 50-sample chunk, scales it, and predicts using the GRU model and cosine similarity.
+8. Predicted gesture (e.g., "Thumbs_Up") is emitted via Socket.IO.
+9. Frontend JavaScript captures the event and triggers the corresponding action in the active module.
+
+8. CONCLUSION
+-------------
+This project successfully bridges biomedical engineering (FMG/IMU sensing) with modern web development and machine learning. By utilizing a hybrid GRU/CNN model with dynamic prototype weighting, it guarantees robust and adaptive gesture classification. The transition to a Flask-SocketIO web framework provides a clean, scalable, and responsive interface suitable for diverse applications in HCI, assistive tech, and immersive gaming.
